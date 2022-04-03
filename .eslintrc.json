@@ -18,6 +18,7 @@
 		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "single"],
 		"semi": ["error", "always"],
+		"react/react-in-jsx-scope": "off",
 		"no-unused-vars": [
 			"warn",
 			{ "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
