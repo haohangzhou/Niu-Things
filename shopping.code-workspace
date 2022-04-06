@@ -4,5 +4,8 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"javascript.suggest.paths": false,
+		"typescript.suggest.paths": false
+	}
 }
