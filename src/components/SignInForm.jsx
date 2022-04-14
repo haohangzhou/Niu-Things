@@ -1,9 +1,6 @@
 /* eslint-disable indent */
-import { async } from '@firebase/util';
 import React, { useState } from 'react';
 import {
-	createAuthUserWithEmailAndPassword,
-	createUserDocumentFromAuth,
 	signInWithGooglePopup,
 	signInAuthUserWithEmailAndPassword,
 } from '../utils/firebase.js';
@@ -23,8 +20,7 @@ const SignInForm = () => {
 	const { email, passwords } = formField;
 
 	const signInWithGoogle = async () => {
-		const { user } = await signInWithGooglePopup();
-		await createUserDocumentFromAuth(user);
+		await signInWithGooglePopup();
 	};
 
 	const resetForm = () => {
@@ -42,10 +38,7 @@ const SignInForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await signInAuthUserWithEmailAndPassword(
-				email,
-				passwords
-			);
+			await signInAuthUserWithEmailAndPassword(email, passwords);
 		} catch (error) {
 			switch (error.code) {
 				case 'auth/wrong-password':
