@@ -6,6 +6,7 @@ import { UserContext } from '../contexts/User';
 import { signOutUser } from '../utils/firebase.js';
 
 import CartIcon from './cart-icon/CartIcon.component';
+import CartDropdown from './cart-dropdown/CartDropdown.component';
 
 import './NavBar.scss';
 const NavBar = () => {
@@ -32,6 +33,7 @@ const NavBar = () => {
 					)}
 					<CartIcon />
 				</div>
+				<CartDropdown />
 			</div>
 
 			<Outlet />
