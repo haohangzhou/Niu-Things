@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import './InputField.scss';
+
 const InputField = ({ label, ...otherProps }) => {
 	return (
 		<div className="group">

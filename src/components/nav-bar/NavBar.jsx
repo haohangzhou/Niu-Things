@@ -1,12 +1,12 @@
 import React, { Fragment, useContext } from 'react';
 
 import { Link, Outlet } from 'react-router-dom';
-import { ReactComponent as Logo } from '../assets/Niu.invert.svg';
-import { UserContext } from '../contexts/User';
-import { signOutUser } from '../utils/firebase.js';
+import { ReactComponent as Logo } from '../../assets/Niu.invert.svg';
+import { UserContext } from '../../contexts/User.context';
+import { signOutUser } from '../../utils/firebase.js';
 
-import CartIcon from './cart-icon/CartIcon.component';
-import CartDropdown from './cart-dropdown/CartDropdown.component';
+import CartIcon from '../cart-icon/CartIcon.component';
+import CartDropdown from '../cart-dropdown/CartDropdown.component';
 
 import './NavBar.scss';
 const NavBar = () => {

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import {
 	createAuthUserWithEmailAndPassword,
 	createUserDocumentFromAuth,
-} from '../utils/firebase.js';
+} from '../../utils/firebase';
 
-import InputField from './InputField.jsx';
-import Button from './Button.jsx';
+import InputField from '../input-field/InputField';
+import Button from '../button/Button';
 
 import './SignUpForm.scss';
 

@@ -1,14 +1,14 @@
 /* eslint-disable indent */
 import React, { useState } from 'react';
+import './SignInForm.scss';
+
 import {
 	signInWithGooglePopup,
 	signInAuthUserWithEmailAndPassword,
-} from '../utils/firebase.js';
+} from '../../utils/firebase.js';
 
-import InputField from './InputField.jsx';
-import Button from './Button.jsx';
-
-import './SignInForm.scss';
+import InputField from '../input-field/InputField.jsx';
+import Button from '../button/Button.jsx';
 
 const initialValue = {
 	email: '',

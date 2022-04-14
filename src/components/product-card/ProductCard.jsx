@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import Button from './Button';
 import './ProductCard.scss';
+
+import Button from '../button/Button';
 
 const ProductCard = ({ product }) => {
 	const { imageUrl, name, price } = product;
