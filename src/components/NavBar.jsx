@@ -5,6 +5,8 @@ import { ReactComponent as Logo } from '../assets/Niu.invert.svg';
 import { UserContext } from '../contexts/User';
 import { signOutUser } from '../utils/firebase.js';
 
+import CartIcon from './cart-icon/CartIcon.component';
+
 import './NavBar.scss';
 const NavBar = () => {
 	const { currentUser } = useContext(UserContext);
@@ -28,6 +30,7 @@ const NavBar = () => {
 							<Link to="auth">Sign In</Link>
 						</div>
 					)}
+					<CartIcon />
 				</div>
 			</div>
 
