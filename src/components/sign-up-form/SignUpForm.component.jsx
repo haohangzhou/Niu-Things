@@ -4,7 +4,7 @@ import {
 	createUserDocumentFromAuth,
 } from '../../utils/firebase';
 
-import InputField from '../input-field/InputField';
+import InputField from '../input-field/InputField.component';
 import Button from '../button/Button';
 
 import './SignUpForm.scss';

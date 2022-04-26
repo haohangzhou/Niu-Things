@@ -7,7 +7,7 @@ import {
 	signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase.js';
 
-import InputField from '../input-field/InputField.jsx';
+import InputField from '../input-field/InputField.component.jsx';
 import Button from '../button/Button.jsx';
 
 const initialValue = {

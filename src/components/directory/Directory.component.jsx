@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import CategoryItem from '../category-item/CategoryItem';
+import CategoryItem from '../category-item/CategoryItem.component';
 import './Directory.scss';
 const Directory = ({ categories }) => {
 	return (
