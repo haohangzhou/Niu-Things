@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 // add to cart helper function
 export const addCartItem = (cartItems, productToAdd) => {
@@ -25,16 +25,32 @@ export const CartContext = createContext({
 	setIsCarOpen: () => {},
 	cartItems: [],
 	addItemToCart: () => {},
+	cartQuantity: 0,
 });
 
 export const CartProvider = ({ children }) => {
 	const [isCartOpen, setIsCartOpen] = useState(false);
+	const [cartQuantity, setCartQuantity] = useState(0);
 	const [cartItems, setCartItems] = useState([]);
 
 	const addItemToCart = (product) =>
 		setCartItems(addCartItem(cartItems, product));
 
-	const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart };
+	useEffect(() => {
+		const newCartQuantity = cartItems.reduce(
+			(total, item) => total + item.quantity,
+			0
+		);
+		setCartQuantity(newCartQuantity);
+	}, [cartItems]);
+
+	const value = {
+		isCartOpen,
+		setIsCartOpen,
+		cartItems,
+		addItemToCart,
+		cartQuantity,
+	};
 	return (
 		<CartContext.Provider value={value}>{children}</CartContext.Provider>
 	);
