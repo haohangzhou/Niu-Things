@@ -20,7 +20,14 @@ const firebaseConfig = {
 	appId: '1:107600495819:web:251801a334e01cc9ae074e',
 };
 
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+	getFirestore,
+	doc,
+	getDoc,
+	setDoc,
+	collection,
+	writeBatch,
+} from 'firebase/firestore';
 
 const firebaseapp = initializeApp(firebaseConfig);
 
@@ -37,6 +44,19 @@ export const signInWithGoogleRedirect = () =>
 	signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
+
+export const addCollectionAndDocuments = async (collectionKey, objectToAdd) => {
+	const collectionRef = collection(db, collectionKey);
+	const batch = writeBatch(db);
+
+	objectToAdd.forEach((object) => {
+		const docRef = doc(collectionRef, object.title.toLowerCase());
+		batch.set(docRef, object);
+	});
+
+	await batch.commit();
+	console.log('Data uploaded');
+};
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
 	if (!email || !password) return;
