@@ -11,6 +11,17 @@ import {
 	onAuthStateChanged,
 } from 'firebase/auth';
 
+import {
+	getFirestore,
+	doc,
+	getDoc,
+	setDoc,
+	collection,
+	writeBatch,
+	query,
+	getDocs,
+} from 'firebase/firestore';
+
 const firebaseConfig = {
 	apiKey: 'AIzaSyD9LEK_D526WJr7W3nGQE2T4ivSeZ7lS8o',
 	authDomain: 'shopping-app-db-c2a20.firebaseapp.com',
@@ -19,15 +30,6 @@ const firebaseConfig = {
 	messagingSenderId: '107600495819',
 	appId: '1:107600495819:web:251801a334e01cc9ae074e',
 };
-
-import {
-	getFirestore,
-	doc,
-	getDoc,
-	setDoc,
-	collection,
-	writeBatch,
-} from 'firebase/firestore';
 
 const firebaseapp = initializeApp(firebaseConfig);
 
@@ -56,6 +58,21 @@ export const addCollectionAndDocuments = async (collectionKey, objectToAdd) => {
 
 	await batch.commit();
 	console.log('Data uploaded');
+};
+
+export const getCategoriesAndCollections = async () => {
+	const collectionRef = collection(db, 'categories');
+	const q = query(collectionRef);
+
+	const querySnapshot = await getDocs(q);
+
+	const categotiesMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+		const { title, items } = docSnapshot.data();
+		acc[title.toLowerCase()] = items;
+		return acc;
+	}, {});
+
+	return categotiesMap;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
