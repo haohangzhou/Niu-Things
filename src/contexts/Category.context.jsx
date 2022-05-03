@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { async } from '@firebase/util';
 import { createContext, useEffect, useState } from 'react';
 import { getCategoriesAndCollections } from '../utils/firebase.js';
 
