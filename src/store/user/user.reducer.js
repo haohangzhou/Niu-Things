@@ -1,20 +1,17 @@
 /* eslint-disable indent */
-const USER_ACTION_TYPES = {
-	SET_CURRETN_USER: 'SET_CURRETN_USER',
+import USER_ACTION_TYPES from './user.types';
+
+export const USER_INITIAL_STATE = {
+	currentUser: null,
 };
 
-const INITIAL_STATE = { currentUser: null };
-
-export const userReducer = (state = INITIAL_STATE, action) => {
+export const userReducer = (state = USER_INITIAL_STATE, action = {}) => {
 	const { type, payload } = action;
 
 	switch (type) {
-		case USER_ACTION_TYPES.SET_CURRETN_USER:
-			return {
-				...state,
-				currentUser: payload,
-			};
+		case USER_ACTION_TYPES.SET_CURRENT_USER:
+			return { ...state, currentUser: payload };
 		default:
-			state;
+			return state;
 	}
 };

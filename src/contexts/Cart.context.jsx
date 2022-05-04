@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable react/prop-types */
 import React, { createContext, useReducer } from 'react';
-import { creactAction } from '../utils/reducer.js';
+import { createAction } from '../utils/reducer.js';
 // add to cart helper function
 export const addCartItem = (cartItems, productToAdd) => {
 	// check if productToAdd exist in the cartItems array
@@ -110,7 +110,7 @@ export const CartProvider = ({ children }) => {
 	const { isCartOpen, cartItems, cartQuantity, cartTotal } = state;
 
 	const setIsCartOpen = (bool) => {
-		dispatch(creactAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool));
+		dispatch(createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool));
 	};
 
 	const updateCartItemsReducer = (newCartItems) => {
@@ -125,7 +125,7 @@ export const CartProvider = ({ children }) => {
 		);
 
 		dispatch(
-			creactAction(CART_ACTION_TYPES.SET_CART_ITEM, {
+			createAction(CART_ACTION_TYPES.SET_CART_ITEM, {
 				cartItems: newCartItems,
 				cartQuantity: newCartCount,
 				cartTotal: newTotal,

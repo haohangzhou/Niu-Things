@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable react/prop-types */
 import React, { useEffect, createContext, useReducer } from 'react';
-import { creactAction } from '../utils/reducer.js';
+import { createAction } from '../utils/reducer.js';
 
 import {
 	onAuthStateChangedListener,
@@ -38,7 +38,7 @@ export const UserProvider = ({ children }) => {
 	const { currentUser } = state;
 
 	const setCurrentUser = (user) => {
-		dispatch(creactAction(USER_ACTION_TYPES.SET_CURRETN_USER, user));
+		dispatch(createAction(USER_ACTION_TYPES.SET_CURRETN_USER, user));
 	};
 
 	const value = { currentUser, setCurrentUser };
