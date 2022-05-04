@@ -1,21 +1,21 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-import './Button.scss';
+import {
+	BaseButton,
+	GoogleSignInButton,
+	InvertedButton,
+} from './Button.style.jsx';
 
-const BUTTON_TYPES_CLASSES = {
-	google: 'google-sign-in',
-	inverted: 'inverted',
+export const BUTTON_TYPE_CLASSES = {
+	base: BaseButton,
+	google: GoogleSignInButton,
+	inverted: InvertedButton,
 };
-const Button = ({ children, buttonType, ...otherProps }) => {
-	return (
-		<button
-			className={`button-container ${BUTTON_TYPES_CLASSES[buttonType]}`}
-			{...otherProps}
-		>
-			{children}
-		</button>
-	);
+
+const Button = ({ children, buttonType = 'base', ...otherProps }) => {
+	const CustomButton = BUTTON_TYPE_CLASSES[buttonType];
+	return <CustomButton {...otherProps}>{children}</CustomButton>;
 };
 
 export default Button;

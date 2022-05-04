@@ -1,22 +1,25 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import './DirectoryItem.scss';
+import { useNavigate } from 'react-router-dom';
+import {
+	BackgroundImage,
+	Body,
+	DirectoryItemContainer,
+} from './DirectoryItem.style.jsx';
 
 const DirectoryItem = ({ category }) => {
+	const navigation = useNavigate();
 	const { imageUrl, title } = category;
+
+	const goToShopPage = () => navigation(`/shop/${title}`);
 	return (
-		<div className="directory-item-container">
-			<div
-				className="background-image"
-				style={{
-					backgroundImage: `url(${imageUrl})`,
-				}}
-			></div>
-			<div className="directory-body-container">
+		<DirectoryItemContainer onClick={goToShopPage}>
+			<BackgroundImage imageUrl={imageUrl}></BackgroundImage>
+			<Body>
 				<h2>{title}</h2>
 				<p>Shop Now</p>
-			</div>
-		</div>
+			</Body>
+		</DirectoryItemContainer>
 	);
 };
 
