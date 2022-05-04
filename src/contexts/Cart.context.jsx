@@ -1,6 +1,7 @@
+/* eslint-disable indent */
 /* eslint-disable react/prop-types */
-import React, { createContext, useEffect, useState } from 'react';
-
+import React, { createContext, useReducer } from 'react';
+import { creactAction } from '../utils/reducer.js';
 // add to cart helper function
 export const addCartItem = (cartItems, productToAdd) => {
 	// check if productToAdd exist in the cartItems array
@@ -52,51 +53,90 @@ export const CartContext = createContext({
 	setCartTotal: () => {},
 });
 
+const INITIAL_STATE = {
+	isCartOpen: false,
+	cartItems: [],
+	cartQuantity: 0,
+	cartTotal: 0,
+};
+
+const CART_ACTION_TYPES = {
+	SET_CART_ITEM: 'SET_CART_ITEM',
+	SET_IS_CART_OPEN: 'SET_IS_CART_OPEN',
+};
+
+const CartReducer = (state, action) => {
+	const { type, payload } = action;
+
+	switch (type) {
+		case CART_ACTION_TYPES.SET_CART_ITEM:
+			return {
+				...state,
+				...payload,
+			};
+		case CART_ACTION_TYPES.SET_IS_CART_OPEN:
+			return {
+				...state,
+				isCartOpen: payload,
+			};
+		default:
+			throw new Error(`Invalid action type ${type} in CartReducer`);
+	}
+};
+
 export const CartProvider = ({ children }) => {
-	const [isCartOpen, setIsCartOpen] = useState(false);
-	const [cartQuantity, setCartQuantity] = useState(0);
-	const [cartItems, setCartItems] = useState([]);
-	const [cartTotal, setCartTotal] = useState(0);
 	// add new item to cart
-	const addItemToCart = (product) =>
-		setCartItems(addCartItem(cartItems, product));
+	const addItemToCart = (product) => {
+		const newCartItems = addCartItem(cartItems, product);
+		updateCartItemsReducer(newCartItems);
+	};
 
 	// remove item from cart
-	const removeItem = (productToRemove) =>
-		setCartItems(removeCartItem(cartItems, productToRemove));
+	const removeItem = (productToRemove) => {
+		const newCartItems = removeCartItem(cartItems, productToRemove);
+		updateCartItemsReducer(newCartItems);
+	};
 
 	// remove the item and return a new array when user click on "X" on the checkout page
 	const clearItems = (productToRemove) => {
-		const newArray = cartItems.filter(
+		const newCartItems = cartItems.filter(
 			(cartItem) => cartItem.id !== productToRemove.id
 		);
-		setCartItems(newArray);
+		updateCartItemsReducer(newCartItems);
 	};
 
-	// display the total quantity of cart items (used in cart icon)
-	useEffect(() => {
-		const newCartQuantity = cartItems.reduce(
+	const [state, dispatch] = useReducer(CartReducer, INITIAL_STATE);
+
+	const { isCartOpen, cartItems, cartQuantity, cartTotal } = state;
+
+	const setIsCartOpen = (bool) => {
+		dispatch(creactAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool));
+	};
+
+	const updateCartItemsReducer = (newCartItems) => {
+		const newCartCount = newCartItems.reduce(
 			(total, item) => total + item.quantity,
 			0
 		);
 
-		setCartQuantity(newCartQuantity);
-	}, [cartItems]);
-
-	// Total balance in the checkout page
-	useEffect(() => {
-		const total = cartItems.reduce(
+		const newTotal = newCartItems.reduce(
 			(total, item) => total + item.quantity * item.price,
 			0
 		);
-		setCartTotal(total);
-	}, [cartItems]);
+
+		dispatch(
+			creactAction(CART_ACTION_TYPES.SET_CART_ITEM, {
+				cartItems: newCartItems,
+				cartQuantity: newCartCount,
+				cartTotal: newTotal,
+			})
+		);
+	};
 
 	const value = {
 		isCartOpen,
 		setIsCartOpen,
 		cartItems,
-		setCartItems,
 		addItemToCart,
 		removeItem,
 		clearItems,

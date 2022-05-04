@@ -1,5 +1,8 @@
+/* eslint-disable indent */
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState, createContext } from 'react';
+import React, { useEffect, createContext, useReducer } from 'react';
+import { creactAction } from '../utils/reducer.js';
+
 import {
 	onAuthStateChangedListener,
 	createUserDocumentFromAuth,
@@ -10,8 +13,34 @@ export const UserContext = createContext({
 	setCurrentUser: () => null,
 });
 
+const USER_ACTION_TYPES = {
+	SET_CURRETN_USER: 'SET_CURRETN_USER',
+};
+
+const UserReducer = (state, action) => {
+	const { type, payload } = action;
+
+	switch (type) {
+		case USER_ACTION_TYPES.SET_CURRETN_USER:
+			return {
+				...state,
+				currentUser: payload,
+			};
+		default:
+			throw new Error(`Invalid action type ${type}`);
+	}
+};
+
+const INITIAL_STATE = { currentUser: null };
+
 export const UserProvider = ({ children }) => {
-	const [currentUser, setCurrentUser] = useState(null);
+	const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
+	const { currentUser } = state;
+
+	const setCurrentUser = (user) => {
+		dispatch(creactAction(USER_ACTION_TYPES.SET_CURRETN_USER, user));
+	};
+
 	const value = { currentUser, setCurrentUser };
 
 	useEffect(() => {
