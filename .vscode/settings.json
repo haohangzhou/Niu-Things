@@ -1,6 +1,5 @@
 {
 	"javascript.suggest.paths": false,
 	"typescript.suggest.paths": false,
-	"editor.fontSize": 16,
-	"prettier.printWidth": 80
+	"editor.fontSize": 16
 }

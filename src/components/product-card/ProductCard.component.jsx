@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import './ProductCard.scss';
+
 import Button from '../button/Button';
-import { addItemToCart } from '../../store/cart/cart.action';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectCartItems } from '../../store/cart/cart.selector';
+import { CartContext } from '../../contexts/Cart.context';
 
 const ProductCard = ({ product }) => {
 	const { imageUrl, name, price } = product;
-	const cartItems = useSelector(selectCartItems);
-	const dispatch = useDispatch();
+	const { addItemToCart } = useContext(CartContext);
 
-	const addProductToCart = () => dispatch(addItemToCart(cartItems, product));
+	const addProductToCart = () => {
+		addItemToCart(product);
+	};
 
 	return (
 		<div className="product-card-container">

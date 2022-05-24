@@ -1,5 +1,5 @@
 import { createAction } from '../../utils/reducer';
-import { CART_ACTION_TYPES } from './cart.types';
+import CART_ACTION_TYPES from './cart.types';
 
 /* add cart item helper function */
 const addCartItem = (cartItems, productToAdd) => {
@@ -44,10 +44,6 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 
 const clearCartItem = (cartItems, cartItemToClear) =>
 	cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
-
-/* 
-The actual actions to dispatch
-*/
 
 export const addItemToCart = (cartItems, productToAdd) => {
 	const newCartItems = addCartItem(cartItems, productToAdd);

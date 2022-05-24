@@ -2,8 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/Niu.invert.svg';
 
-export const NavigationContainer = styled.nav`
-	position: fixed,
+export const NavigationContainer = styled.div`
 	height: 70px;
 	width: 100%;
 	display: flex;

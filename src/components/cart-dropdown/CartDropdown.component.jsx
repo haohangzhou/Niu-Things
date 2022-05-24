@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
 	CartDropdownContainer,
 	EmptyMessage,
@@ -7,23 +7,17 @@ import {
 
 import Button from '../button/Button';
 import CartItem from '../cart-items/CartItem.component';
+import { CartContext } from '../../contexts/Cart.context';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-	selectCartItems,
-	selectIsCartOpen,
-} from '../../store/cart/cart.selector.js';
-import { setIsCartOpen } from '../../store/cart/cart.action.js';
 
 const CartDropdown = () => {
+	const { isCartOpen, setIsCartOpen, cartItems } = useContext(CartContext);
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const isCartOpen = useSelector(selectIsCartOpen);
-	const cartItems = useSelector(selectCartItems);
+
 	const goToCheckoutPage = () => {
 		navigate('/checkout');
 		//hide the cart when go to checkout page
-		dispatch(setIsCartOpen(!isCartOpen));
+		setIsCartOpen(!isCartOpen);
 	};
 
 	return (
