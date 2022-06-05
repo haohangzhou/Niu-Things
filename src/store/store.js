@@ -3,8 +3,18 @@ import logger from 'redux-logger';
 
 import { rootReducer } from './root-reducer';
 
-const middleWares = [logger];
+const middleWares = [process.env.NODE_ENV === 'development' ? logger : ''];
 
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+//add redux dev tools
+const composeEnhancers =
+	(typeof window !== 'undefined' &&
+		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+	compose;
 
-export const store = createStore(rootReducer, composedEnhancers);
+const composedEnhancers = composeEnhancers(applyMiddleware(...middleWares));
+
+export const store = createStore(
+	rootReducer,
+
+	composedEnhancers
+);
